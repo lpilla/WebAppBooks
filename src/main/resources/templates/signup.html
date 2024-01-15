@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <title>Registrazione utente</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header" th:with="username=${username}"></div>
+
+<h1>Registrazione utente</h1><br>
+
+<form th:action="@{/user/signup/}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td>Nome</td>
+            <td><input type="text" th:field="*{nome}"></input></td>
+            <td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></td>
+        </tr>
+        <tr>
+            <td>Cognome</td>
+            <td><input type="text" th:field="*{cognome}"></input></td>
+            <td th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" th:field="*{email}"></input></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+        </tr>
+        <tr>
+            <td>User name</td>
+            <td><input type="text" th:field="*{username}"></input></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="text" th:field="*{password}"></input></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Submit"></input></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

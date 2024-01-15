@@ -1,0 +1,60 @@
+<div th:fragment="header">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    header {
+        background-color: #3498db;
+        color: #fff;
+        padding: 1em;
+        text-align: center;
+    }
+
+    .logo {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #2980b9;
+        padding: 0.5em;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 1em;
+        margin: 0 10px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #ecf0f1;
+    }
+</style>
+    <header>
+        <div class="logo">Lorenzo Pilla</div>
+        <p>Book Web App</p>
+    </header>
+
+    <nav>
+        <div>
+            <a href="/user/signin">Login</a>
+            <a href="/user/signup">Register</a>
+            <a href="/books">Book List</a>
+        </div>
+        <div th:if="${session['loggedUser'] != null}">
+            <p>Account: <span th:text="${session['loggedUser']['username']}">default</span></p>
+            <a href="/user/logout">Logout</a>
+        </div>
+
+    </nav>
+</div>
