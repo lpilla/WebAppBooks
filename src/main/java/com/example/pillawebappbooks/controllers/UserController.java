@@ -77,5 +77,18 @@ public class UserController {
         return "redirect:/user/signin";
     }
 
+    @RequestMapping("/allusers")
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "userslist";
+    }
+
+    @RequestMapping("/{id}")
+    public String getUser(@PathVariable("id") Long id, Model model) {
+        User user = userRepository.findById(id).get();
+        model.addAttribute("user", user);
+        return "user";
+    }
+
 
 }

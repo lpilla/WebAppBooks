@@ -20,7 +20,7 @@ public class BookController {
         public String index(HttpSession session,Model model) {
             if(session.getAttribute("loggedUser") == null)
                 return "redirect:/user/signin";
-            model.addAttribute("books", bookRepository.findAll());
+            model.addAttribute("books", bookRepository.findByUser((User)session.getAttribute("loggedUser")));
             return "books";
         }
 
@@ -31,8 +31,8 @@ public class BookController {
             return "addbook";
         }
         @RequestMapping(value = "/add",method = RequestMethod.POST)
-        public String addBook(@RequestParam("title") String title, @RequestParam("description") String description) {
-            Book book = new Book(title, description);
+        public String addBook(@RequestParam("title") String title, @RequestParam("description") String description,HttpSession session) {
+            Book book = new Book(title, description,(User)session.getAttribute("loggedUser"));
             bookRepository.save(book);
             return "redirect:/books";
         }
@@ -41,6 +41,28 @@ public class BookController {
         public String deleteBook(@PathVariable("id") Long id) {
             bookRepository.deleteById(id);
             return "redirect:/books";
+        }
+
+        @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
+        public String editBookPage(@PathVariable("id") Long id, Model model) {
+            model.addAttribute("book", bookRepository.findById(id).get());
+            return "editbook";
+        }
+        @RequestMapping(value = "/edit",method = RequestMethod.POST)
+        public String editBook(@RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("description") String description) {
+            Book book = bookRepository.findById(id).get();
+            book.setTitle(title);
+            book.setDescription(description);
+            bookRepository.save(book);
+            return "redirect:/books";
+        }
+
+        @RequestMapping("/sincronizza")
+        @ResponseBody
+        public String sincronizza() {
+            String url = "https://www.googleapis.com/books/v1/volumes?q=search+terms";
+
+            return "giorgio";
         }
 
 

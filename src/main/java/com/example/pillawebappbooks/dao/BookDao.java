@@ -10,4 +10,6 @@ public interface BookDao extends CrudRepository<Book, Long> {
     public Book findByTitle(String title);
     public Book findByDescription(String description);
     public Optional<Book> findById(Long id);
+
+    public Iterable<Book> findByUser(User user);
 }

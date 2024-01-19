@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "books")
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,15 +12,19 @@ public class Book {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String description;
-
     // Constructors, getters, and setters
+
+    @ManyToOne
+    @JoinColumn()
+    private User user;
 
     public Book() {
     }
 
-    public Book(String title, String description) {
+    public Book(String title, String description, User user) {
         this.title = title;
         this.description = description;
+        this.user = user;
     }
 
     // Getters and setters

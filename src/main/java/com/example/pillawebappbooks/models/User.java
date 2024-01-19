@@ -52,9 +52,16 @@ public class User {
     @NotNull(message = "Password deve esser inserito")
     String password;
 
-    //@NotNull
-    //@Min(value = 18, message = "Sito per solo adulti")
-    //Integer age;
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    Set<Book> books = new HashSet<>();
 
     //il costruttore di default è NECESSARIO
     public User() {}

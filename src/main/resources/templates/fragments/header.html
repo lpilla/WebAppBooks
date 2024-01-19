@@ -53,6 +53,7 @@
         </div>
         <div th:if="${session['loggedUser'] != null}">
             <p>Account: <span th:text="${session['loggedUser']['username']}">default</span></p>
+            <a href="/user/allusers">Lista di tutti gli utenti</a>
             <a href="/user/logout">Logout</a>
         </div>
 

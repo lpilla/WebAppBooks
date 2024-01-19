@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -85,40 +83,26 @@
     </style>
 </head>
 <body>
-<div th:replace="fragments/header :: header" th:with="username=${username}"></div>
-<h1>Books page</h1>
-<table>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Actions</th>
-    </tr>
-    <a th:href="@{/books/add}">Add book</a>
-    <tr th:each="book : ${books}">
-        <td th:text="${book.title}"></td>
-        <td>
-            <div class="truncate" th:text="${#strings.length(book.description) > 200 ? #strings.substring(book.description, 0, 200) + '...' : book.description}"></div>
-            <div class="read-more-container">
-                <span class="read-more" onclick="showFullDescription(this)">Read more</span>
-                <div class="full-description" th:text="${book.description}"></div>
-            </div>
-        </td>
-        <td>
-            <div class="actions">
-                <a th:href="@{/books/edit/{id}(id=${book.id})}"><i class="fas fa-edit action-icons" title="Edit"></i></a>
-                <a th:href="@{/books/delete/{id}(id=${book.id})}"><i class="fas fa-trash-alt action-icons" title="Delete"></i> </a>
-            </div>
-        </td>
-    </tr>
-</table>
-
-<script>
-    function showFullDescription(element) {
-        const readMoreContainer = element.parentNode;
-        const fullDescription = readMoreContainer.querySelector('.full-description');
-        fullDescription.style.display = fullDescription.style.display === 'none' ? 'block' : 'none';
-    }
-</script>
+    <p th:text=" 'Username:' + ${user.username}"></p>
+    <p th:text=" 'Email:' + ${user.email}"></p>
+    <p th:text=" 'Nome:' + ${user.nome}"></p>
+    <h1 style="color: #3498db;text-align: center" th:text=" 'Libri:' + ${user.getBooks().size()}"></h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="book : ${user.getBooks()}">
+            <td th:text="${book.title}"></td>
+            <td>
+                <div class="truncate" th:text="${#strings.length(book.description) > 200 ? #strings.substring(book.description, 0, 200) + '...' : book.description}"></div>
+                <div class="read-more-container">
+                    <span class="read-more" onclick="showFullDescription(this)">Read more</span>
+                    <div class="full-description" th:text="${book.description}"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
 
 </body>
 </html>

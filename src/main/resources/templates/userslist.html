@@ -87,28 +87,15 @@
 <body>
 <div th:replace="fragments/header :: header" th:with="username=${username}"></div>
 <h1>Books page</h1>
+
 <table>
     <tr>
         <th>Title</th>
         <th>Description</th>
-        <th>Actions</th>
     </tr>
-    <a th:href="@{/books/add}">Add book</a>
-    <tr th:each="book : ${books}">
-        <td th:text="${book.title}"></td>
-        <td>
-            <div class="truncate" th:text="${#strings.length(book.description) > 200 ? #strings.substring(book.description, 0, 200) + '...' : book.description}"></div>
-            <div class="read-more-container">
-                <span class="read-more" onclick="showFullDescription(this)">Read more</span>
-                <div class="full-description" th:text="${book.description}"></div>
-            </div>
-        </td>
-        <td>
-            <div class="actions">
-                <a th:href="@{/books/edit/{id}(id=${book.id})}"><i class="fas fa-edit action-icons" title="Edit"></i></a>
-                <a th:href="@{/books/delete/{id}(id=${book.id})}"><i class="fas fa-trash-alt action-icons" title="Delete"></i> </a>
-            </div>
-        </td>
+    <tr th:each="user : ${users}">
+        <td><a th:href="@{/user/{id}(id=${user.id})}"><span th:text="${user.username}"></span> </a></td>
+        <td th:text="${user.email}"></td>
     </tr>
 </table>
 
